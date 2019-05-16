@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace CustomList
 {
-    public class CustomList<T>
+    public class CustomList<T> 
     {// member variable (HAS A)
         private T[] customList;
-        public int count { get { return Count; } }
-        private int Count;
-        public int capacity { get { return Capacity; } }
-        private int Capacity;
+        public int Count { get { return count; } }
+        private int count;
+        public int Capacity { get { return capacity; } }
+        private int capacity;
         // constructor
         public CustomList()
         {
-            Count = 0;
-            Capacity = 4;
-            customList = new T[Capacity];
+            count = 0;
+            capacity = 4;
+            customList = new T[capacity];
 
         }
      // member methods (CAN DO)
@@ -41,26 +41,45 @@ namespace CustomList
         {
             ChangeCapacity();
             customList[Count] = value;
-            Count++ ;
+            count++ ;
             
         }
         public void ChangeCapacity()
         { 
-            if (Count == Capacity )
+            if (count == capacity )
             {
-                Capacity = (Capacity * 2);
+                capacity = (capacity * 2);
                T[] customList2 = new T[capacity];
                 for (int i = 0; i < Count; i++ )
                 {
                     customList2[i] = customList[i];
                     
                 }
-                
                 customList = customList2;
             }
                 
         }
+        public bool RemoveFromList( T value)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (value.Equals(customList[i]))
+                {
+                    for ( int j = i; j < (count-1); j++)
+                    {
+                        customList[i] = customList[j + 1];
+                    }
+                    count--;
+                    customList[count] = default(T);
+                    return true;
+                }
+                //else
+                //{
+                //    return false;
+                //}
+            }
+            return false;
+        }
 
- 
     }
 }
