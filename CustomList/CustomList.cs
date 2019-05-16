@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomList
 {
-    public class CustomList<T> 
+    public class CustomList<T> : IEnumerable
     {// member variable (HAS A)
         private T[] customList;
         public int Count { get { return count; } }
@@ -22,6 +23,15 @@ namespace CustomList
 
         }
      // member methods (CAN DO)
+
+        public IEnumerator GetEnumerator()
+        {
+            for (int index = 0; index < count; index++)
+            {
+                yield return customList[index];
+            }
+
+        }
      public T this[int indexrange]
      {
            
@@ -91,6 +101,44 @@ namespace CustomList
             }
             
             return stringList;
+        }
+        public CustomList<T> Zip(CustomList<T> list)
+        { CustomList<T> newList = new CustomList<T>();
+             if (count >= list.Count)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    newList.AddToList(customList[i]);
+                    
+                     if (list[i] == null)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        newList.AddToList(list[i]);
+                    }
+                }
+            }
+             else
+            {
+                for (int i = 0; i < list.count; i++)
+                {
+
+                    if (customList[i] == null)
+                    {
+                       
+                    }
+                    else
+                    {
+                        newList.AddToList(customList[i]);
+                    }
+                    newList.AddToList(list[i]);
+
+               }
+
+            }
+            return newList;
         }
 
     }
