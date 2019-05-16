@@ -73,12 +73,24 @@ namespace CustomList
                     customList[count] = default(T);
                     return true;
                 }
-                //else
-                //{
-                //    return false;
-                //}
             }
             return false;
+        }
+        public override string ToString()
+        {
+            
+            string stringList = "";
+            if (count != 0)
+            {
+                for (int i = 0; i < (count - 1); i++)
+                {
+                    stringList += customList[i].ToString() + ",";
+
+                }
+                stringList += customList[count - 1].ToString();
+            }
+            
+            return stringList;
         }
 
     }
