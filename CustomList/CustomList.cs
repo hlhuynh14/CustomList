@@ -78,6 +78,7 @@ namespace CustomList
                     for ( int j = i; j < (count-1); j++)
                     {
                         customList[i] = customList[j + 1];
+                        i++;
                     }
                     count--;
                     customList[count] = default(T);
@@ -140,6 +141,28 @@ namespace CustomList
             }
             return newList;
         }
+        public static CustomList<T> operator + (CustomList<T> list1, CustomList<T> list2)
+        {
+            CustomList<T> newList = new CustomList<T>();
+            for (int i = 0; i < list1.count; i++)
+            {
+                newList.AddToList(list1[i]);
+            }
+            for (int i = 0; i < list2.count; i++)
+            {
+                newList.AddToList(list2[i]);
+            }
+            return newList;
+        }
+        public static CustomList<T> operator -(CustomList<T> list1, CustomList<T> list2)
+        {
+            
+            for (int i = 0; i < list2.count; i++)
+            {
+                list1.RemoveFromList(list2[i]);
+            }
 
+            return list1;
+        }
     }
 }
