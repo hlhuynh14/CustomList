@@ -113,7 +113,7 @@ namespace CustomList
                     
                      if (list[i] == null)
                     {
-                        continue;
+                        
                     }
                     else
                     {

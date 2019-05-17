@@ -1,0 +1,97 @@
+CustomList<T> - Operator Overload method
+
+Removes any object in the first list that was present in the second list.
+
+public static CustomList<T> operator -
+
+Parameters
+list1, list2
+The two list used. the object in list2 is remove from list1. If there is no object in list1, nothing is removed.
+
+Returns
+CustomList<T>
+The first list before the operator with all objects from the second list removed once.
+
+Implement
+list1 - list2
+ 
+Example
+
+            int value1 = 5;
+            int value2 = 6;
+            int value3 = 7;
+            int value4 = 9;
+            int value5 = 11;
+            
+            CustomList<int> list1 = new CustomList<int>();
+            CustomList<int> list2 = new CustomList<int>();
+
+
+            
+            list1.AddToList(value1);
+            list1.AddToList(value2);
+            list1.AddToList(value3);
+            list2.AddToList(value5);
+            list2.AddToList(value4);
+            list2.AddToList(value1);
+
+	    //list1 = { 5,6,7 }
+	    //list2 = { 11,9,5 }
+
+            list1 = list1 - list2; 
+		
+
+	    // Since list1[0] == list1[2], the object is deleted from the first list and the list is returned.
+	    // returns list1 = { 6,7 }
+
+
+//////////////////////////////////////////////////////////////////
+
+CustomList<T> + Operator Overload method
+
+Add both list to one list with the whole first list added first.
+
+public static CustomList<T> operator +
+
+Parameters
+list1, list2
+The two list used. the objects in both lists are added to one list with list1 added first. 
+
+Returns
+CustomList<T>
+A list containing both list that was in the arguments of the operator.
+
+Implement
+list1 + list2
+ 
+Example
+
+            int value1 = 5;
+            int value2 = 6;
+            int value3 = 7;
+            int value4 = 9;
+            int value5 = 11;
+            
+            CustomList<int> list1 = new CustomList<int>();
+            CustomList<int> list2 = new CustomList<int>();
+
+
+            
+            list1.AddToList(value1);
+            list1.AddToList(value2);
+            list1.AddToList(value3);
+            list2.AddToList(value5);
+            list2.AddToList(value4);
+            list2.AddToList(value1);
+
+	    //list1 = { 5,6,7 }
+	    //list2 = { 11,9,5 }
+
+            list1 = list1 + list2; 
+		
+
+
+	    // returns list1 = { 5,6,7,11,9,5 }
+
+
+
