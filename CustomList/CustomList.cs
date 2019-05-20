@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 namespace CustomList
 {
@@ -22,7 +24,7 @@ namespace CustomList
             customList = new T[capacity];
 
         }
-     // member methods (CAN DO)
+        // member methods (CAN DO)
 
         public IEnumerator GetEnumerator()
         {
@@ -32,53 +34,53 @@ namespace CustomList
             }
 
         }
-     public T this[int indexrange]
-     {
-           
-                get
-                {
-                    return customList[indexrange];
-                }
-                set
-                {
-                    customList[indexrange] = value;
-                }
-            
-     }
+        public T this[int indexrange]
+        {
+
+            get
+            {
+                return customList[indexrange];
+            }
+            set
+            {
+                customList[indexrange] = value;
+            }
+
+        }
 
 
-       public void AddToList(T value)
+        public void AddToList(T value)
         {
             ChangeCapacity();
             customList[Count] = value;
-            count++ ;
-            
+            count++;
+
         }
-        public void ChangeCapacity()
-        { 
-            if (count == capacity )
+        private void ChangeCapacity()
+        {
+            if (count == capacity)
             {
                 capacity = (capacity * 2);
-               T[] customList2 = new T[capacity];
-                for (int i = 0; i < Count; i++ )
+                T[] customList2 = new T[capacity];
+                for (int i = 0; i < Count; i++)
                 {
                     customList2[i] = customList[i];
-                    
+
                 }
                 customList = customList2;
             }
-                
+
         }
-        public bool RemoveFromList( T value)
+        public bool RemoveFromList(T value)
         {
             for (int i = 0; i < count; i++)
             {
                 if (value.Equals(customList[i]))
                 {
-                    for ( int j = i; j < (count-1); j++)
+                    for (int j = i; j < (count - 1); j++)
                     {
-                        customList[i] = customList[j + 1];
-                        i++;
+                        customList[j] = customList[j + 1];
+
                     }
                     count--;
                     customList[count] = default(T);
@@ -89,31 +91,31 @@ namespace CustomList
         }
         public override string ToString()
         {
-            
+
             string stringList = "";
-            if (count != 0)
+            if (this.Count != 0)
             {
-                for (int i = 0; i < (count - 1); i++)
+                for (int i = 0; i < (this.Count - 1); i++)
                 {
-                    stringList += customList[i].ToString() + ",";
+                    stringList += this[i].ToString() + ",";
 
                 }
-                stringList += customList[count - 1].ToString();
+                stringList += this[count - 1].ToString();
             }
-            
+
             return stringList;
         }
         public CustomList<T> Zip(CustomList<T> list)
         { CustomList<T> newList = new CustomList<T>();
-             if (count >= list.Count)
+            if (count >= list.Count)
             {
                 for (int i = 0; i < count; i++)
                 {
                     newList.AddToList(customList[i]);
-                    
-                     if (list[i] == null)
+
+                    if (list[i] == null)
                     {
-                        
+
                     }
                     else
                     {
@@ -121,14 +123,14 @@ namespace CustomList
                     }
                 }
             }
-             else
+            else
             {
                 for (int i = 0; i < list.count; i++)
                 {
 
                     if (customList[i] == null)
                     {
-                       
+
                     }
                     else
                     {
@@ -136,12 +138,12 @@ namespace CustomList
                     }
                     newList.AddToList(list[i]);
 
-               }
+                }
 
             }
             return newList;
         }
-        public static CustomList<T> operator + (CustomList<T> list1, CustomList<T> list2)
+        public static CustomList<T> operator +(CustomList<T> list1, CustomList<T> list2)
         {
             CustomList<T> newList = new CustomList<T>();
             for (int i = 0; i < list1.count; i++)
@@ -156,7 +158,7 @@ namespace CustomList
         }
         public static CustomList<T> operator -(CustomList<T> list1, CustomList<T> list2)
         {
-            
+
             for (int i = 0; i < list2.count; i++)
             {
                 list1.RemoveFromList(list2[i]);
@@ -164,5 +166,73 @@ namespace CustomList
 
             return list1;
         }
+        private void SortArray(int start, int middle, int end)
+        {
+            Comparer comp = new Comparer(new CultureInfo(0x040A, false));
+            int placeKeeper = start;
+            int placeKeeper2 = middle +1;
+            int switcher = 0;
+            T[] Array1;
+            Array1 = new T[(end-start)+1];
+
+
+
+
+            for (int i = start; i <= end; i++)
+            {
+                if (start > middle)
+                {
+                    Array1[switcher] = customList[placeKeeper2];
+                    switcher++;
+                    placeKeeper2++;
+                }
+                    
+               else if( placeKeeper2 > end)
+               {
+                    Array1[switcher] = customList[start];
+                    switcher++;
+                    start++;
+               }
+               else if(comp.Compare(customList[start], customList[placeKeeper2]) == -1)
+               {
+                  Array1[switcher] = customList[start];
+                  switcher++;
+                  start++;
+               }
+
+               else
+               {
+                Array1[switcher] = customList[placeKeeper2];
+                 switcher++;
+                 placeKeeper2++;
+               }
+            }
+               for (int j = 0; j < switcher; j++)
+               {
+                    customList[placeKeeper] = Array1[j];
+                    placeKeeper++;
+               }
+            
+        }
+            private void MergeSort(int start, int end)
+            {
+            if (start < end)
+            {
+                int mid = (start + end) / 2;
+                MergeSort(start, mid);
+                MergeSort(mid + 1, end);
+                SortArray(start, mid, end);
+            }
+
+            }
+            public void Sort()
+            {
+                MergeSort(0, count-1);
+            }
+
+
+
+
     }
 }
+

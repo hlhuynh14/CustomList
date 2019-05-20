@@ -53,6 +53,7 @@
     <Compile Include="UnitTestRemove.cs" />
     <Compile Include="UnitTestAdd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestSort.cs" />
     <Compile Include="UnitTestToString.cs" />
     <Compile Include="UnitTestZip.cs" />
   </ItemGroup>
